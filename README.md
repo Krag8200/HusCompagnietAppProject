@@ -7,8 +7,18 @@ The app is made to promote reusing and make people reuse leftover building mater
 - Selling part does not have to use recourses to get rid of their leftover materials
 - Buying part can recieve usable material for cheap or complete free
 
-***User stories:***
+***USER STORIES:***
 
-"As a buyer, I want to easily find currently available building materials, as well as sort through different types of available material to find exactly what i need. When i find a seller, I want to be able to quickly purchase or bid for a part or all the material for sale, as well as being able to see the location of the materials, to avoid travelling too far to pick it up."
+- "As a buyer, I want to easily find currently available building materials, as well as sort through different types of available material to find exactly what i need. When i find a seller, I want to be able to quickly purchase or bid for a part or all the material for sale, as well as being able to see the location of the materials, to avoid travelling too far to pick it up."
 
-"As a seller, I want to quickly and easily enlist building materials for sale or for free, to minimize the trouble of getting rid of it. I want to recieve potential payment through the app, to avoid being cheated." 
+- "As a seller, I want to quickly and easily enlist building materials for sale or for free, to minimize the trouble of getting rid of it. I want to recieve potential payment through the app, to avoid being cheated." 
+
+***APP REQUIREMENTS:***
+- [ ] Create a user
+- [ ] Login feature
+- [ ] Enlist a product for sale/free pickup
+- [ ] Make a bid/purchasement/reservation of a product
+- [ ] Comment section to a product for potential questions
+- [ ] Filter feature (to specify products)
+- [ ] Location feature (to see locations of products)
+- [ ] Premium selling feature (put a product "on the top of the list" to make more people see it)
