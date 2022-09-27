@@ -9,12 +9,12 @@ The app is made to promote reusing and make people reuse leftover building mater
 
 ***USER STORIES:***
 
-- "As a buyer, I want to easily find currently available building materials, as well as sort through different types of available material to find exactly what i need."
-- "When I find a seller, I want to be able to quickly purchase a part or all of the material for sale"
-- "I want to be able to see the location of the materials, to avoid travelling too far to pick it up."
+-	"As a buyer, I want to easily find currently available building materials, as well as sort through different types of available material to find exactly what I need."
+-	"When I find a seller, I want to be able to quickly purchase a part or all of the ma-terial for sale"
+-	"I want to be able to see the location of the materials to avoid traveling too far to pick it up."
 
-- "As a seller, I want to quickly and easily enlist building materials for sale or for free, to minimize the trouble of getting rid of it."
-- "I want to recieve potential payment through the app, to avoid being cheated." 
+-	"As a seller, I want to quickly and easily enlist building materials for sale or for free to minimize the trouble of getting rid of them."
+-	"I want to receive potential payment through the app to avoid being cheated."
 
 ***APP REQUIREMENTS:***
 - [ ] Create a user
