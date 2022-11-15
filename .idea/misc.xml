@@ -3,7 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Andreas Krag/AndroidStudioProjects/AND1/HusCompagnietProject/app/src/main/res/drawable/rounded_button.xml" value="0.2175" />
+        <entry key="..\:/Users/Andreas Krag/AndroidStudioProjects/AND1/HusCompagnietProject/app/src/main/res/drawable/rounded_textfield.xml" value="0.2175" />
+        <entry key="..\:/Users/Andreas Krag/AndroidStudioProjects/AND1/HusCompagnietProject/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/Andreas Krag/AndroidStudioProjects/AND1/HusCompagnietProject/app/src/main/res/layout-w1240dp/activity_register.xml" value="0.1606425702811245" />
+        <entry key="..\:/Users/Andreas Krag/AndroidStudioProjects/AND1/HusCompagnietProject/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/Andreas Krag/AndroidStudioProjects/AND1/HusCompagnietProject/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/Andreas Krag/AndroidStudioProjects/AND1/HusCompagnietProject/app/src/main/res/layout/activity_main.xml" value="0.2359375" />
+        <entry key="..\:/Users/Andreas Krag/AndroidStudioProjects/AND1/HusCompagnietProject/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/Users/Andreas Krag/AndroidStudioProjects/AND1/HusCompagnietProject/app/src/main/res/layout/content_login.xml" value="0.25" />
+        <entry key="..\:/Users/Andreas Krag/AndroidStudioProjects/AND1/HusCompagnietProject/app/src/main/res/layout/fragment_first.xml" value="0.25" />
+        <entry key="..\:/Users/Andreas Krag/AndroidStudioProjects/AND1/HusCompagnietProject/app/src/main/res/layout/fragment_second.xml" value="0.25" />
       </map>
     </option>
   </component>
