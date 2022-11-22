@@ -26,7 +26,11 @@ The app is made to promote reusing and make people reuse leftover building mater
 - [ ] Location feature (to see locations of products)
 - [ ] Premium selling feature (put a product "on the top of the list" to make more people see it)
 
-References:
+
+
+**References:**
 - https://www.youtube.com/watch?v=kMEkP6f9_kE&ab_channel=Learnoset-LearnCodingOnline
 - https://www.youtube.com/watch?v=SXlidHy-Tb8&ab_channel=Firebase
 - https://firebase.google.com/docs/database/android/start
+- https://www.youtube.com/watch?v=Bb8SgfI4Cm4&ab_channel=Foxandroid
+
