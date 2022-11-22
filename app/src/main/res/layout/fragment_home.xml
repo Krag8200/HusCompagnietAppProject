@@ -14,27 +14,6 @@
         android:layout_marginBottom="100dp"
         android:id="@+id/rv">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ffffff">
-
-            <TextView
-                android:id="@+id/item_title"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Item1" />
-
-            <ImageView
-                android:id="@+id/item_picture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_person_foreground" />
-
-        </LinearLayout>
-
     </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
