@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "100181999843",
+    "firebase_url": "https://huscompagnietproject-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "huscompagnietproject",
     "storage_bucket": "huscompagnietproject.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "100181999843-nhdn25usvnh4g09393i2rvmrhlg82iur.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.huscompagnietproject",
+            "certificate_hash": "73b0d95fe2a537dbad1b520b8d2426730ce54dfd"
+          }
+        },
         {
           "client_id": "100181999843-n6nj91e6amtg54qk72bji427tvivbsck.apps.googleusercontent.com",
           "client_type": 3
