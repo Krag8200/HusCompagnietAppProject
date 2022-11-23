@@ -33,4 +33,4 @@ The app is made to promote reusing and make people reuse leftover building mater
 - https://www.youtube.com/watch?v=SXlidHy-Tb8&ab_channel=Firebase
 - https://firebase.google.com/docs/database/android/start
 - https://www.youtube.com/watch?v=Bb8SgfI4Cm4&ab_channel=Foxandroid
-
+- https://stackoverflow.com/a/13502567
