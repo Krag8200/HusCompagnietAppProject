@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
     android:orientation="vertical"
-    android:layout_marginVertical="35dp">
+    android:layout_marginBottom="35dp">
 
 
     <ImageView
@@ -87,5 +87,13 @@
         android:text="Sign up here!"
         android:textSize="20dp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/continue_no_login"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:text="Continue without logging in"
+        android:textSize="20dp" />
 
 </LinearLayout>

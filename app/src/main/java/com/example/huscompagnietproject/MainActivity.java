@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.huscompagnietproject.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     FirebaseAuth mAuth;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         // Fragments for navigation bar
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -34,9 +38,11 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.browse:
                     replaceFragment(new HomeFragment());
+                    bottomNavigationView.setSelectedItemId(R.id.browse);
                     break;
                 case R.id.favourites:
                     replaceFragment(new FavouritesFragment());
+                    bottomNavigationView.setSelectedItemId(R.id.favourites);
                     break;
                 case R.id.profile:
                     FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -45,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     }
-
+                    bottomNavigationView.setSelectedItemId(R.id.profile);
                     break;
             }
 

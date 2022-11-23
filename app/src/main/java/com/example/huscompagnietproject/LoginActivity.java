@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText loginPassword;
     private Button loginButton;
     private TextView registerLabel;
+    private TextView continueNoLogin;
 
 
     @Override
@@ -44,12 +48,16 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword = findViewById(R.id.passwordLogin);
         loginButton = findViewById(R.id.loginButton);
         registerLabel = findViewById(R.id.registerLabel);
+        continueNoLogin = findViewById(R.id.continue_no_login);
 
         loginButton.setOnClickListener(view -> {
             loginUser();
         });
         registerLabel.setOnClickListener(view -> {
             startActivity(new Intent(this, RegisterActivity.class));
+        });
+        continueNoLogin.setOnClickListener(view -> {
+            finish();
         });
     }
 
@@ -75,6 +83,14 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.flFragment, fragment);
+        fragmentTransaction.commit();
+    }
 
        /* if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please enter your email or password!", Toast.LENGTH_LONG).show();
@@ -120,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
 //            });
 //      }
 
-    }
+
 
     @Override
     public void onStart() {
@@ -128,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
 //        FirebaseUser currentUser = mAuth.getCurrentUser();
 //        if(currentUser != null){
-//            reload();
+//            reloadToHomeFragment();
 //        }
     }
 

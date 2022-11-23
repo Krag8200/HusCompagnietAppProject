@@ -6,10 +6,12 @@ public class Products {
 
     private String title;
     private int imageId;
+    private String description;
 
-    Products(String title, int imageId) {
+    Products(String title, int imageId, String description) {
         this.title = title;
         this.imageId = imageId;
+        this.description = description;
     }
 
     public String getTitle() {
@@ -19,5 +21,7 @@ public class Products {
     public int getImageId() {
         return imageId;
     }
+
+    public String getDescription() { return description; }
 
 }

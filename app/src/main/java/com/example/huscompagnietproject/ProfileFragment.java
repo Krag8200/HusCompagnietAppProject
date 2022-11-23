@@ -1,9 +1,9 @@
 package com.example.huscompagnietproject;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
@@ -12,14 +12,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private Button logoutButton;
+    private BottomNavigationView bottomNavigationView;
+    // private TextView continueNoLogin;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -38,10 +39,16 @@ public class ProfileFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         logoutButton = profileFragmentView.findViewById(R.id.logoutButton);
+        bottomNavigationView = profileFragmentView.findViewById(R.id.bottomNavigationView);
+        // continueNoLogin = profileFragmentView.findViewById(R.id.continue_no_login);
 
         logoutButton.setOnClickListener(view -> {
             logoutUser();
         });
+
+/*        continueNoLogin.setOnClickListener(view -> {
+            replaceFragment(new HomeFragment());
+        });     */
 
         return profileFragmentView;
     }
@@ -49,14 +56,14 @@ public class ProfileFragment extends Fragment {
     public void logoutUser() {
         mAuth.signOut();
         Toast.makeText(getActivity(), "Logged out successfully!", Toast.LENGTH_SHORT).show();
-        reload(); //Not working
+        replaceFragment(new HomeFragment());
     }
 
-    void reload() {
-        //Refresh app, not working
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.detach(this);
-        ft.attach(this).commit();
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.flFragment, fragment);
+        fragmentTransaction.commit();
     }
 
 }
