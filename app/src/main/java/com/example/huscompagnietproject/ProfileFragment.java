@@ -19,8 +19,8 @@ public class ProfileFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private Button logoutButton;
+    private Button enlistButton;
     private BottomNavigationView bottomNavigationView;
-    // private TextView continueNoLogin;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -39,16 +39,16 @@ public class ProfileFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         logoutButton = profileFragmentView.findViewById(R.id.logoutButton);
+        enlistButton = profileFragmentView.findViewById(R.id.enlist_button);
         bottomNavigationView = profileFragmentView.findViewById(R.id.bottomNavigationView);
-        // continueNoLogin = profileFragmentView.findViewById(R.id.continue_no_login);
 
         logoutButton.setOnClickListener(view -> {
             logoutUser();
         });
 
-/*        continueNoLogin.setOnClickListener(view -> {
-            replaceFragment(new HomeFragment());
-        });     */
+        enlistButton.setOnClickListener(view -> {
+            //TODO: Create event for enlisting - potentially new fragment
+        });
 
         return profileFragmentView;
     }

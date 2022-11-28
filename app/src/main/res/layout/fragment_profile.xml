@@ -9,9 +9,37 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/user_email"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:text="User email"
+        android:textSize="20sp"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your listings:"
+        android:textSize="16sp"
+        android:gravity="center"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/enlist_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/rounded_button"
+        android:text="Enlist a new product"
+        android:textSize="20sp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/logoutButton"
@@ -21,7 +49,7 @@
         android:layout_marginVertical="25dp"
         android:background="@drawable/rounded_button"
         android:text="Log out"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
 
 </LinearLayout>
