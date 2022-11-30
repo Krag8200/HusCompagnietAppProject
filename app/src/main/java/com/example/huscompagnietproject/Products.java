@@ -8,12 +8,14 @@ public class Products {
     private String description;
     private double price;
     private String category;
+    private String enlistedByUser;
 
-    Products(String title, String description, double price, String category) {
+    Products(String title, String description, double price, String category, String enlistedByUser) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.category = category;
+        this.enlistedByUser = enlistedByUser;
     }
 
     public String getTitle() {
@@ -25,6 +27,8 @@ public class Products {
     public double getPrice() { return price; }
 
     public String getCategory() { return category; }
+
+    public String getEnlistedByUser() { return enlistedByUser; }
 
     public void setTitle(String title) {
         this.title = title;
@@ -41,5 +45,7 @@ public class Products {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public void setEnlistedByUser(String enlistedByUser) { this.enlistedByUser = enlistedByUser; }
 
 }

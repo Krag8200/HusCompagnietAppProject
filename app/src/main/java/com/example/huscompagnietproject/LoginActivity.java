@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     //DatabaseReference dbReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://huscompagnietproject-default-rtdb.europe-west1.firebasedatabase.app/");
-
     private TextInputEditText loginEmail;
     private TextInputEditText loginPassword;
     private Button loginButton;
@@ -43,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Instantiating
         mAuth = FirebaseAuth.getInstance();
         loginEmail = findViewById(R.id.emailLogin);
         loginPassword = findViewById(R.id.passwordLogin);
@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    // Login user
     public void loginUser() {
         String email = loginEmail.getText().toString();
         String password = loginPassword.getText().toString();
@@ -70,14 +71,11 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            // Log.d(TAG, "signInWithEmail:success");
-                            // FirebaseUser user = mAuth.getCurrentUser();
+                            // Sign in success
                             Toast.makeText(LoginActivity.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
-                            // Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed, please try again.",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -85,13 +83,8 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.flFragment, fragment);
-        fragmentTransaction.commit();
-    }
 
+    // TODO: Clean-up commented out code
        /* if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please enter your email or password!", Toast.LENGTH_LONG).show();
         } else {
@@ -138,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+    // TODO: Check if method is needed
     @Override
     public void onStart() {
         super.onStart();

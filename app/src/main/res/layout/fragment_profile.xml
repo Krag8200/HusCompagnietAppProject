@@ -27,7 +27,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:background="@drawable/layout_list_bg"
+        android:id="@+id/profile_rv">
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.button.MaterialButton

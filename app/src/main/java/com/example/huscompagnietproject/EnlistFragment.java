@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,9 +31,10 @@ public class EnlistFragment extends Fragment {
     private TextInputEditText priceInput;
     private Button enlistItem;
     private String category;
+    private String enlistedByUser;
+    private FirebaseAuth mAuth;
     Spinner dropdown;
     String[] items = new String[]{"No category", "Wood", "Metal", "Other"};
-
     DatabaseReference dbReference;
     Products products;
     long maxId=0;
@@ -51,13 +53,17 @@ public class EnlistFragment extends Fragment {
                              Bundle savedInstanceState) {
         View enlistFragmentView = inflater.inflate(R.layout.fragment_enlist, container, false);
 
+        // Instantiating
         titleInput = enlistFragmentView.findViewById(R.id.title_input);
         descriptionInput = enlistFragmentView.findViewById(R.id.description_input);
         priceInput = enlistFragmentView.findViewById(R.id.price_input);
         enlistItem = enlistFragmentView.findViewById(R.id.submit_item_button);
         dropdown = enlistFragmentView.findViewById(R.id.select_category_dropdown);
         dbReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://huscompagnietproject-default-rtdb.europe-west1.firebasedatabase.app/");
+        mAuth = FirebaseAuth.getInstance();
+        enlistedByUser = mAuth.getCurrentUser().toString();
 
+        // Get current amount of enlisted items in DB
         dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -72,14 +78,12 @@ public class EnlistFragment extends Fragment {
             }
         });
 
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        //There are multiple variations of this, but this is the basic variant.
+        //Creating and setting adapter for dropdown
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
-
-        //set the spinners adapter to the previously created one.
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(adapter);
 
+        // Instantiating category depending on what is selected from dropdown
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -105,12 +109,13 @@ public class EnlistFragment extends Fragment {
             }
         });
 
+        // Creating DB entry
         enlistItem.setOnClickListener(view -> {
 
             String title = titleInput.getText().toString();
             String description = descriptionInput.getText().toString();
             double price = Double.parseDouble(priceInput.getText().toString());
-            products = new Products(title, description, price, category);
+            products = new Products(title, description, price, category, enlistedByUser);
 
             if (title.isEmpty() || description.isEmpty()) {
                 Toast.makeText(getActivity(), "Please enter all fields", Toast.LENGTH_SHORT).show();
@@ -119,6 +124,7 @@ public class EnlistFragment extends Fragment {
                 dbReference.child("Products").child(String.valueOf(maxId + 1)).child("Description").setValue(description);
                 dbReference.child("Products").child(String.valueOf(maxId + 1)).child("Price").setValue(price);
                 dbReference.child("Products").child(String.valueOf(maxId + 1)).child("Category").setValue(category);
+                dbReference.child("Products").child(String.valueOf(maxId + 1)).child("Enlisted By User").setValue(enlistedByUser);
 
                 Toast.makeText(getActivity(), "Product has been enlisted!", Toast.LENGTH_LONG).show();
 
@@ -129,6 +135,7 @@ public class EnlistFragment extends Fragment {
         return enlistFragmentView;
     }
 
+    // Replacing fragment
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

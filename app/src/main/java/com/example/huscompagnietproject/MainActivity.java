@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Instantiating
         mAuth = FirebaseAuth.getInstance();
-
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         // Fragments for navigation bar
@@ -37,14 +37,17 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.browse:
+                    // Open HomeFragment
                     replaceFragment(new HomeFragment());
                     bottomNavigationView.setSelectedItemId(R.id.browse);
                     break;
                 case R.id.favourites:
+                    // Open FavouritesFragment
                     replaceFragment(new FavouritesFragment());
                     bottomNavigationView.setSelectedItemId(R.id.favourites);
                     break;
                 case R.id.profile:
+                    // Open ProfileFragment or LoginActivity depending on whether user is logged in
                     FirebaseUser currentUser = mAuth.getCurrentUser();
                     if(currentUser != null){
                         replaceFragment(new ProfileFragment());
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // Replacing fragment
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

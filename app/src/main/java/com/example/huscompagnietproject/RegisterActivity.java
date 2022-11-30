@@ -39,9 +39,9 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Instantiating
         mAuth = FirebaseAuth.getInstance();
         //dbReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://huscompagnietproject-default-rtdb.europe-west1.firebasedatabase.app/");
-
         fullNameInput = findViewById(R.id.nameInput);
         emailInput = findViewById(R.id.emailRegister);
         passwordInput = findViewById(R.id.passwordRegister);
@@ -53,40 +53,43 @@ public class RegisterActivity extends AppCompatActivity {
             signUpUser();
         });
 
+        // Return to LoginActivity
         loginLabel.setOnClickListener(view -> {
             finish();
         });
     }
 
 
-
+    // Signing up user
     private void signUpUser() {
         String fullName = fullNameInput.getText().toString();
         String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
         String passwordCon = conPasswordInput.getText().toString();
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            // Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(RegisterActivity.this, "User created successfully, please log in!", Toast.LENGTH_SHORT).show();
-                            finish();
-                            //updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            //Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed, please try again.",
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
+        // Ensuring everything is filled out
+        if (fullName.isEmpty() || email.isEmpty() || password.isEmpty() || passwordCon.isEmpty()) {
+            Toast.makeText(this, "Please enter all credentials", Toast.LENGTH_SHORT).show();
+        } else {
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign up success, returning to LoginActivity
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                Toast.makeText(RegisterActivity.this, "User created successfully, please log in!", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(RegisterActivity.this, "Authentication failed, please try again.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+        }
 
+        // TODO: Clean-up commented out code
     /*    if (fullName.isEmpty() || email.isEmpty() || password.isEmpty() || passwordCon.isEmpty()) {
             // Ensuring all fields are filled
             Toast.makeText(this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
@@ -120,8 +123,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         }
 */
-
-
 
     }
 }

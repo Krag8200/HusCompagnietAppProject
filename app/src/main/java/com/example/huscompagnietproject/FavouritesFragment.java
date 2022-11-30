@@ -30,30 +30,31 @@ public class FavouritesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_favourites, container, false);
+
+        // Instantiating and creating Recycler view
         favouriteProductList = rootView.findViewById(R.id.rv_favourite);
         favouriteProductList.hasFixedSize();
         favouriteProductList.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
+        // Dummy data - TODO: Populate from DB
         ArrayList<Products> products = new ArrayList<>();
-        products.add(new Products("FavouriteProduct1","Description1", 100, "Wood"));
-        products.add(new Products("FavouriteProduct1","Description1", 100, "Wood"));
-        products.add(new Products("FavouriteProduct1","Description1", 100, "Wood"));
+        products.add(new Products("FavouriteProduct1","Description1", 100, "Wood", "testuser"));
+        products.add(new Products("FavouriteProduct1","Description1", 100, "Wood", "testuser"));
+        products.add(new Products("FavouriteProduct1","Description1", 100, "Wood", "testuser"));
 
+        // Instantiating and setting adapter
+        dropdown = rootView.findViewById(R.id.favourite_filter_dropdown);
         productAdapter = new ProductAdapter(products);
         favouriteProductList.setAdapter(productAdapter);
 
-        //get the spinner from the xml.
-        dropdown = rootView.findViewById(R.id.favourite_filter_dropdown);
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        //There are multiple variations of this, but this is the basic variant.
+        //Creating and setting adapter for dropdown
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
-
-        //set the spinners adapter to the previously created one.
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(adapter);
 
+        // Instantiating category depending on what is selected from dropdown
+        // TODO: Implement functionality for dropdown
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
