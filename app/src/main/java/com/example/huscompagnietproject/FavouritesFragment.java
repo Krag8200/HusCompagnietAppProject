@@ -37,14 +37,9 @@ public class FavouritesFragment extends Fragment {
         favouriteProductList.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
         ArrayList<Products> products = new ArrayList<>();
-        products.add(new Products("FavouriteProduct1",R.drawable.ic_launcher_foreground, "Description1"));
-        products.add(new Products("FavouriteProduct2",R.drawable.ic_launcher_foreground, "Description2"));
-        products.add(new Products("FavouriteProduct3",R.drawable.ic_launcher_foreground, "Description3"));
-        products.add(new Products("FavouriteProduct4",R.drawable.ic_launcher_foreground, "Description4"));
-        products.add(new Products("FavouriteProduct5",R.drawable.ic_launcher_foreground, "Description5"));
-        products.add(new Products("FavouriteProduct6",R.drawable.ic_launcher_foreground, "Description6"));
-        products.add(new Products("FavouriteProduct7",R.drawable.ic_launcher_foreground, "Description7"));
-        products.add(new Products("FavouriteProduct8",R.drawable.ic_launcher_foreground, "Description8"));
+        products.add(new Products("FavouriteProduct1","Description1", 100));
+        products.add(new Products("FavouriteProduct1","Description1", 100));
+        products.add(new Products("FavouriteProduct1","Description1", 100));
 
         productAdapter = new ProductAdapter(products);
         favouriteProductList.setAdapter(productAdapter);

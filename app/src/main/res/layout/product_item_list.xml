@@ -28,7 +28,7 @@
             android:layout_marginRight="10dp"
             android:gravity="center"
             android:text="Item"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/item_description"
@@ -39,16 +39,17 @@
             android:layout_marginRight="10dp"
             android:layout_gravity="center"
             android:text="Description"
-            android:textSize="13dp" />
+            android:textSize="13sp" />
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/item_picture"
+    <TextView
+        android:id="@+id/item_price"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:elevation="10dp"
-        android:background="@drawable/layout_list_image"
-        android:src="@drawable/ic_person_foreground" />
+        android:text="$100"
+        android:gravity="center"
+        android:textSize="22sp"/>
 
 </LinearLayout>

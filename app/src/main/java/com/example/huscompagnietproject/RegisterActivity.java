@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    DatabaseReference dbReference;
+    //DatabaseReference dbReference;
 
     private TextInputEditText fullNameInput;
     private TextInputEditText emailInput;

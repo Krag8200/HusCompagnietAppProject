@@ -35,14 +35,11 @@ public class HomeFragment extends Fragment {
         productList.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
         ArrayList<Products> products = new ArrayList<>();
-        products.add(new Products("Product1",R.drawable.ic_launcher_foreground, "Description1"));
-        products.add(new Products("Product2",R.drawable.ic_launcher_foreground, "Description2"));
-        products.add(new Products("Product3",R.drawable.ic_launcher_foreground, "Description3"));
-        products.add(new Products("Product4",R.drawable.ic_launcher_foreground, "Description4"));
-        products.add(new Products("Product5",R.drawable.ic_launcher_foreground, "Description5"));
-        products.add(new Products("Product6",R.drawable.ic_launcher_foreground, "Description6"));
-        products.add(new Products("Product7",R.drawable.ic_launcher_foreground, "Description7"));
-        products.add(new Products("Product8",R.drawable.ic_launcher_foreground, "Description8"));
+        products.add(new Products("FavouriteProduct1","Description1", 100));
+        products.add(new Products("FavouriteProduct1","Description1", 100));
+        products.add(new Products("FavouriteProduct1","Description1", 100));
+        products.add(new Products("FavouriteProduct1","Description1", 100));
+
 
         productAdapter = new ProductAdapter(products);
         productList.setAdapter(productAdapter);

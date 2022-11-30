@@ -2,6 +2,7 @@ package com.example.huscompagnietproject;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,9 +15,15 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ProfileFragment extends Fragment {
 
+    DatabaseReference dbReference;
     private FirebaseAuth mAuth;
     private Button logoutButton;
     private Button enlistButton;
@@ -41,6 +48,8 @@ public class ProfileFragment extends Fragment {
         logoutButton = profileFragmentView.findViewById(R.id.logoutButton);
         enlistButton = profileFragmentView.findViewById(R.id.enlist_button);
         bottomNavigationView = profileFragmentView.findViewById(R.id.bottomNavigationView);
+        dbReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://huscompagnietproject-default-rtdb.europe-west1.firebasedatabase.app/");
+
 
         logoutButton.setOnClickListener(view -> {
             logoutUser();
@@ -48,6 +57,26 @@ public class ProfileFragment extends Fragment {
 
         enlistButton.setOnClickListener(view -> {
             //TODO: Create event for enlisting - potentially new fragment
+
+            replaceFragment(new EnlistFragment());
+
+/*            //TEST EVENT
+            dbReference.child("message");
+            dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // Sending data to Firebase Realtime Database using email is unique ID
+                    dbReference.child("message").setValue("uh ih uh ahhh");
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+
+            });*/
+
         });
 
         return profileFragmentView;
@@ -65,5 +94,6 @@ public class ProfileFragment extends Fragment {
         fragmentTransaction.replace(R.id.flFragment, fragment);
         fragmentTransaction.commit();
     }
+
 
 }

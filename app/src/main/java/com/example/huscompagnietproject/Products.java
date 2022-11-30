@@ -5,23 +5,37 @@ import java.util.ArrayList;
 public class Products {
 
     private String title;
-    private int imageId;
     private String description;
+    private double price;
 
-    Products(String title, int imageId, String description) {
+    Products(String title, String description, double price) {
         this.title = title;
-        this.imageId = imageId;
         this.description = description;
+        this.price = price;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public int getImageId() {
-        return imageId;
+    public String getDescription() { return description; }
+
+    public double getPrice() { return price; }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getDescription() { return description; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+
+
+
 
 }
