@@ -10,7 +10,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -26,6 +29,10 @@ public class EnlistFragment extends Fragment {
     private TextInputEditText descriptionInput;
     private TextInputEditText priceInput;
     private Button enlistItem;
+    private String category;
+    Spinner dropdown;
+    String[] items = new String[]{"No category", "Wood", "Metal", "Other"};
+
     DatabaseReference dbReference;
     Products products;
     long maxId=0;
@@ -48,6 +55,7 @@ public class EnlistFragment extends Fragment {
         descriptionInput = enlistFragmentView.findViewById(R.id.description_input);
         priceInput = enlistFragmentView.findViewById(R.id.price_input);
         enlistItem = enlistFragmentView.findViewById(R.id.submit_item_button);
+        dropdown = enlistFragmentView.findViewById(R.id.select_category_dropdown);
         dbReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://huscompagnietproject-default-rtdb.europe-west1.firebasedatabase.app/");
 
         dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -64,13 +72,45 @@ public class EnlistFragment extends Fragment {
             }
         });
 
+        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
+        //There are multiple variations of this, but this is the basic variant.
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
+
+        //set the spinners adapter to the previously created one.
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropdown.setAdapter(adapter);
+
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                switch (position) {
+                    case 0:
+                        category = items[0];
+                        break;
+                    case 1:
+                        category = items[1];
+                        break;
+                    case 2:
+                        category = items[2];
+                        break;
+                    case 3:
+                        category = items[4];
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         enlistItem.setOnClickListener(view -> {
 
             String title = titleInput.getText().toString();
             String description = descriptionInput.getText().toString();
             double price = Double.parseDouble(priceInput.getText().toString());
-            products = new Products(title, description, price);
+            products = new Products(title, description, price, category);
 
             if (title.isEmpty() || description.isEmpty()) {
                 Toast.makeText(getActivity(), "Please enter all fields", Toast.LENGTH_SHORT).show();
@@ -78,6 +118,7 @@ public class EnlistFragment extends Fragment {
                 dbReference.child("Products").child(String.valueOf(maxId + 1)).child("Title").setValue(title);
                 dbReference.child("Products").child(String.valueOf(maxId + 1)).child("Description").setValue(description);
                 dbReference.child("Products").child(String.valueOf(maxId + 1)).child("Price").setValue(price);
+                dbReference.child("Products").child(String.valueOf(maxId + 1)).child("Category").setValue(category);
 
                 Toast.makeText(getActivity(), "Product has been enlisted!", Toast.LENGTH_LONG).show();
 
