@@ -1,8 +1,9 @@
 package com.example.huscompagnietproject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Products {
+public class Products implements Serializable {
 
     private String title;
     private String description;

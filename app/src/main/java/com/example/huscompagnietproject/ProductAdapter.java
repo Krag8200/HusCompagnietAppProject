@@ -1,5 +1,6 @@
 package com.example.huscompagnietproject;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHolder>{
+
+    private SelectedItem selectedItem;
 
     // Inflate layout for RecyclerView
     @NonNull
@@ -35,6 +39,10 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHol
         return products.size();
     }
 
+    public interface SelectedItem {
+        void selectedItem (Products product);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView title;
@@ -46,6 +54,13 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHol
             title = itemView.findViewById(R.id.item_title);
             description = itemView.findViewById(R.id.item_description);
             price = itemView.findViewById(R.id.item_price);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectedItem.selectedItem(products.get(getAbsoluteAdapterPosition()));
+                }
+            });
         }
     }
 
@@ -57,6 +72,11 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHol
 
     ProductAdapter(ArrayList<Products> products) {
         this.products = products;
+    }
+
+    ProductAdapter(ArrayList<Products> products, SelectedItem selectedItem) {
+        this.products = products;
+        this.selectedItem = selectedItem;
     }
 
 

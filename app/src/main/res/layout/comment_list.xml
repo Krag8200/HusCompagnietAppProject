@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/container2"
+    android:id="@+id/container3"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/layout_list_bg2"
@@ -19,15 +19,21 @@
         android:background="@drawable/layout_list_full">
 
         <TextView
-            android:id="@+id/useritem_title"
+            android:id="@+id/comment_user"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:text="Item"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Email"
+            android:textStyle="bold"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Comment"
+            android:textSize="15sp" />
 
     </LinearLayout>
 

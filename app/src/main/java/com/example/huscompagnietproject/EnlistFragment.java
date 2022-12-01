@@ -98,7 +98,7 @@ public class EnlistFragment extends Fragment {
                         category = items[2];
                         break;
                     case 3:
-                        category = items[4];
+                        category = items[3];
                         break;
                 }
             }
