@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class UserProductAdapter extends  RecyclerView.Adapter<UserProductAdapter.ViewHolder>{
+public class UserProductAdapter extends RecyclerView.Adapter<UserProductAdapter.ViewHolder>{
+
+    private ArrayList<Product> products;
 
     // Inflate layout for RecyclerView
     @NonNull
@@ -41,13 +43,11 @@ public class UserProductAdapter extends  RecyclerView.Adapter<UserProductAdapter
         }
     }
 
-    private ArrayList<Products> products;
-
     public UserProductAdapter() {
 
     }
 
-    UserProductAdapter(ArrayList<Products> products) {
+    UserProductAdapter(ArrayList<Product> products) {
         this.products = products;
     }
 

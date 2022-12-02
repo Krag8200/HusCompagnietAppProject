@@ -38,10 +38,10 @@ public class FavouritesFragment extends Fragment {
         favouriteProductList.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
         // Dummy data - TODO: Populate from DB
-        ArrayList<Products> products = new ArrayList<>();
-        products.add(new Products("FavouriteProduct1","Description1", 100, "Wood", "testuser"));
-        products.add(new Products("FavouriteProduct1","Description1", 100, "Wood", "testuser"));
-        products.add(new Products("FavouriteProduct1","Description1", 100, "Wood", "testuser"));
+        ArrayList<Product> products = new ArrayList<>();
+        products.add(new Product("FavouriteProduct1","Description1", 100, "Wood", "testuser"));
+        products.add(new Product("FavouriteProduct1","Description1", 100, "Wood", "testuser"));
+        products.add(new Product("FavouriteProduct1","Description1", 100, "Wood", "testuser"));
 
         // Instantiating and setting adapter
         dropdown = rootView.findViewById(R.id.favourite_filter_dropdown);

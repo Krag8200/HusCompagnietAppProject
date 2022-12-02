@@ -30,6 +30,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
     Spinner dropdown;
     String[] items = new String[]{"No filter", "Wood", "Metal", "Other"};
     DatabaseReference dbReference;
+    ArrayList<Product> productArrayList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -46,15 +47,15 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
         productList.hasFixedSize();
         productList.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
-        // Create ArrayList to show items in RV
-        ArrayList<Products> productsArrayList = new ArrayList<>();
+        // Instantiate ArrayList to show items in RV
+        productArrayList = new ArrayList<>();
 
         // Instantiating and setting adapter
-        productAdapter = new ProductAdapter(productsArrayList);
+        productAdapter = new ProductAdapter(productArrayList);
         productList.setAdapter(productAdapter);
 
         // Call method readDatabase
-        readDatabase(productsArrayList);
+        readDatabase(productArrayList);
 
         //Creating and setting adapter for dropdown
         dropdown = rootView.findViewById(R.id.filter_dropdown);
@@ -63,17 +64,18 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
         dropdown.setAdapter(adapter);
 
         // Instantiating category depending on what is selected from dropdown
-        // TODO: Fix functionality for dropdown - Not working
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 switch (position) {
                     case 0:
-                        readDatabase(productsArrayList);
+                        // Instantiating and setting adapter
+                        productAdapter = new ProductAdapter(productArrayList);
+                        productList.setAdapter(productAdapter);
                         break;
                     case 1:
-                        ArrayList<Products> woodList = new ArrayList<>();
-                        for (Products product : productsArrayList) {
+                        ArrayList<Product> woodList = new ArrayList<>();
+                        for (Product product : productArrayList) {
                             if (product.getCategory().contains(items[1])) {
                                 woodList.add(product);
                             }
@@ -81,11 +83,10 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
                         // Instantiating and setting adapter
                         productAdapter = new ProductAdapter(woodList);
                         productList.setAdapter(productAdapter);
-                        // readDatabase(woodList);
                         break;
                     case 2:
-                        ArrayList<Products> metalList = new ArrayList<>();
-                        for (Products product : productsArrayList) {
+                        ArrayList<Product> metalList = new ArrayList<>();
+                        for (Product product : productArrayList) {
                             if (product.getCategory().contains(items[2])) {
                                 metalList.add(product);
                             }
@@ -93,22 +94,17 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
                         // Instantiating and setting adapter
                         productAdapter = new ProductAdapter(metalList);
                         productList.setAdapter(productAdapter);
-                        // readDatabase(metalList);
                         break;
                     case 3:
-                        ArrayList<Products> otherList = new ArrayList<>();
-                        for (Products product : productsArrayList) {
+                        ArrayList<Product> otherList = new ArrayList<>();
+                        for (Product product : productArrayList) {
                             if (product.getCategory().contains(items[3])) {
                                 otherList.add(product);
                             }
                         }
                         // Instantiating and setting adapter
                         productAdapter = new ProductAdapter(otherList);
-                        productAdapter.setOnClickListener(product -> {
-
-                        });
                         productList.setAdapter(productAdapter);
-                        // readDatabase(otherList);
                         break;
                 }
             }
@@ -138,7 +134,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
                         String cat = snapshot1.child("Category").getValue(String.class);
                         String user = snapshot1.child("Enlisted By User").getValue(String.class);
 
-                        list.add(new Products(title, desc, price, cat, user));
+                        list.add(new Product(title, desc, price, cat, user));
                     }
                 }
                 productAdapter.notifyDataSetChanged();
@@ -152,8 +148,27 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
     }
 
     @Override
-    public void onClick(Products product) {
-        startActivity(new Intent(getActivity(), SelectedItemActivity.class).putExtra("data", product));
+    public void onClick(int position) {
+        Intent intent = new Intent(getActivity(), SelectedItemActivity.class);
+        intent.putExtra("productTitle", productArrayList.get(position).getTitle());
+        intent.putExtra("productDesc", productArrayList.get(position).getDescription());
+        intent.putExtra("productPrice", productArrayList.get(position).getPrice());
+
+
     }
+
+
+
+/*    @Override
+    public void onClick(Product product) {
+        productAdapter.setOnClickListener(prd -> {
+            Intent intent = new Intent(getActivity(), SelectedItemActivity.class);
+            intent.putExtra("Product_title", prd.getTitle());
+            intent.putExtra("Product_description", prd.getDescription());
+            intent.putExtra("Product_price", prd.getPrice());
+            startActivity(intent);
+        });
+
+    }*/
 
     }

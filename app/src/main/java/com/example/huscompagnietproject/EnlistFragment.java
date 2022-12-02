@@ -36,7 +36,7 @@ public class EnlistFragment extends Fragment {
     Spinner dropdown;
     String[] items = new String[]{"No category", "Wood", "Metal", "Other"};
     DatabaseReference dbReference;
-    Products products;
+    Product product;
     long maxId=0;
 
     public EnlistFragment() {
@@ -61,7 +61,7 @@ public class EnlistFragment extends Fragment {
         dropdown = enlistFragmentView.findViewById(R.id.select_category_dropdown);
         dbReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://huscompagnietproject-default-rtdb.europe-west1.firebasedatabase.app/");
         mAuth = FirebaseAuth.getInstance();
-        enlistedByUser = mAuth.getCurrentUser().toString();
+        enlistedByUser = mAuth.getCurrentUser().getEmail();
 
         // Get current amount of enlisted items in DB
         dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -115,7 +115,7 @@ public class EnlistFragment extends Fragment {
             String title = titleInput.getText().toString();
             String description = descriptionInput.getText().toString();
             double price = Double.parseDouble(priceInput.getText().toString());
-            products = new Products(title, description, price, category, enlistedByUser);
+            product = new Product(title, description, price, category, enlistedByUser);
 
             if (title.isEmpty() || description.isEmpty()) {
                 Toast.makeText(getActivity(), "Please enter all fields", Toast.LENGTH_SHORT).show();

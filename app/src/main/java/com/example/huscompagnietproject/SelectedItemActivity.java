@@ -2,7 +2,6 @@ package com.example.huscompagnietproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,14 +25,15 @@ public class SelectedItemActivity extends AppCompatActivity {
         buyButton = findViewById(R.id.buy_button);
         addFavouriteButton = findViewById(R.id.add_favourite_button);
 
-        Intent intent = getIntent();
+        Bundle bundle = getIntent().getExtras();
 
-        if (intent.getExtras() != null) {
-            Products product = (Products) intent.getSerializableExtra("data");
-            title.setText(product.getTitle());
-            description.setText(product.getDescription());
-            price.setText((int) product.getPrice());
-
+        if (bundle != null && bundle.containsKey("productTitle")) {
+            String bundleTitle = bundle.getString("productTitle");
+            String bundleDesc = bundle.getString("productDesc");
+            int bundlePrice = bundle.getInt("productPrice");
+            price.setText((int) bundlePrice);
+            description.setText(bundleDesc);
+            title.setText(bundleTitle);
         }
     }
 }

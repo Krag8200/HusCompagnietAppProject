@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,8 +34,9 @@ public class ProfileFragment extends Fragment {
     private Button enlistButton;
     private BottomNavigationView bottomNavigationView;
     private RecyclerView userEnlistedItems;
-    UserProductAdapter userProductAdapter;
     private TextView userEmail;
+    UserProductAdapter userProductAdapter;
+    ArrayList<Product> products;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -59,7 +59,8 @@ public class ProfileFragment extends Fragment {
         enlistButton = profileFragmentView.findViewById(R.id.enlist_button);
         bottomNavigationView = profileFragmentView.findViewById(R.id.bottomNavigationView);
         userEmail = profileFragmentView.findViewById(R.id.user_email);
-        dbReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://huscompagnietproject-default-rtdb.europe-west1.firebasedatabase.app/");
+        dbReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://huscompagnietproject-default-rtdb.europe-west1.firebasedatabase.app/").child("Products");
+        products = new ArrayList<>();
 
         // Displaying user email
         userEmail.setText(mAuth.getCurrentUser().getEmail());
@@ -69,12 +70,34 @@ public class ProfileFragment extends Fragment {
         userEnlistedItems.hasFixedSize();
         userEnlistedItems.setLayoutManager(new LinearLayoutManager(profileFragmentView.getContext()));
 
-        // Dummy data - TODO: Populate from DB
-        ArrayList<Products> products = new ArrayList<>();
-        products.add(new Products("EnlistedProduct1","Description1", 100, "Wood", "testuser"));
-        products.add(new Products("EnlistedProduct1","Description1", 100, "Wood", "testuser"));
-        products.add(new Products("EnlistedProduct1","Description1", 100, "Wood", "testuser"));
-        products.add(new Products("EnlistedProduct1","Description1", 100, "Wood", "testuser"));
+        // Read through DB and show items enlisted by current user
+        dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                products.clear();
+                if (snapshot.exists()) {
+
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+
+                        String title = snapshot1.child("Title").getValue(String.class);
+                        String desc = snapshot1.child("Description").getValue(String.class);
+                        int price = snapshot1.child("Price").getValue(Integer.class);
+                        String cat = snapshot1.child("Category").getValue(String.class);
+                        String user = snapshot1.child("Enlisted By User").getValue(String.class);
+
+                        if (user.equals(userEmail.getText())) {
+                            products.add(new Product(title, desc, price, cat, user));
+                        }
+                    }
+                }
+                userProductAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         // Instantiating and setting adapter
         userProductAdapter = new UserProductAdapter(products);
@@ -106,6 +129,5 @@ public class ProfileFragment extends Fragment {
         fragmentTransaction.replace(R.id.flFragment, fragment);
         fragmentTransaction.commit();
     }
-
 
 }

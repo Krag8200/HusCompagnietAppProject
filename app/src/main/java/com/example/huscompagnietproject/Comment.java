@@ -4,9 +4,9 @@ public class Comment {
 
     private String email;
     private String userComment;
-    private Products product;
+    private Product product;
 
-    public Comment(String email, String userComment, Products product) {
+    public Comment(String email, String userComment, Product product) {
         this.email = email;
         this.userComment = userComment;
         this.product = product;
@@ -28,11 +28,11 @@ public class Comment {
         this.userComment = userComment;
     }
 
-    public Products getProduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduct(Products product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 }

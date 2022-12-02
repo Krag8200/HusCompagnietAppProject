@@ -1,9 +1,6 @@
 package com.example.huscompagnietproject;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
-public class Products implements Serializable {
+public class Product {
 
     private String title;
     private String description;
@@ -11,7 +8,7 @@ public class Products implements Serializable {
     private String category;
     private String enlistedByUser;
 
-    Products(String title, String description, double price, String category, String enlistedByUser) {
+    Product(String title, String description, double price, String category, String enlistedByUser) {
         this.title = title;
         this.description = description;
         this.price = price;

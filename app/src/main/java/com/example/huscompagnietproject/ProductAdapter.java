@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHolder>{
 
-    private OnItemClickListener selectedItem;
+    private ArrayList<Product> products;
+    private OnItemClickListener onItemClickListener;
 
     // Inflate layout for RecyclerView
     @NonNull
@@ -37,10 +38,10 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHol
     }
 
     public interface OnItemClickListener {
-        void onClick(Products product);
+        void onClick(int position);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView title;
         private final TextView description;
@@ -51,28 +52,26 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHol
             title = itemView.findViewById(R.id.item_title);
             description = itemView.findViewById(R.id.item_description);
             price = itemView.findViewById(R.id.item_price);
+            itemView.setOnClickListener(this);
+        }
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    selectedItem.onClick(products.get(getAdapterPosition()));
-                }
-            });
+        @Override
+        public void onClick(View view) {
+            onItemClickListener.onClick(getAdapterPosition());
         }
     }
 
-    private ArrayList<Products> products;
 
     public ProductAdapter() {
 
     }
 
-    ProductAdapter(ArrayList<Products> products) {
+    ProductAdapter(ArrayList<Product> products) {
         this.products = products;
     }
 
     public void setOnClickListener(OnItemClickListener listener){
-        selectedItem = listener;
+        onItemClickListener = listener;
     }
 
 
