@@ -1,21 +1,18 @@
 package com.example.huscompagnietproject;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHolder>{
 
-    private SelectedItem selectedItem;
+    private OnItemClickListener selectedItem;
 
     // Inflate layout for RecyclerView
     @NonNull
@@ -39,8 +36,8 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHol
         return products.size();
     }
 
-    public interface SelectedItem {
-        void selectedItem (Products product);
+    public interface OnItemClickListener {
+        void onClick(Products product);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -58,7 +55,7 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHol
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    selectedItem.selectedItem(products.get(getAbsoluteAdapterPosition()));
+                    selectedItem.onClick(products.get(getAdapterPosition()));
                 }
             });
         }
@@ -74,9 +71,8 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHol
         this.products = products;
     }
 
-    ProductAdapter(ArrayList<Products> products, SelectedItem selectedItem) {
-        this.products = products;
-        this.selectedItem = selectedItem;
+    public void setOnClickListener(OnItemClickListener listener){
+        selectedItem = listener;
     }
 
 

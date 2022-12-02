@@ -45,7 +45,7 @@ public class FavouritesFragment extends Fragment {
 
         // Instantiating and setting adapter
         dropdown = rootView.findViewById(R.id.favourite_filter_dropdown);
-        productAdapter = new ProductAdapter(products, (ProductAdapter.SelectedItem) this);
+        productAdapter = new ProductAdapter(products);
         favouriteProductList.setAdapter(productAdapter);
 
         //Creating and setting adapter for dropdown

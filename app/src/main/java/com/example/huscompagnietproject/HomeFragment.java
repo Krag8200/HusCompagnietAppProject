@@ -15,8 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements ProductAdapter.SelectedItem{
+public class HomeFragment extends Fragment implements ProductAdapter.OnItemClickListener {
 
     RecyclerView productList;
     ProductAdapter productAdapter;
@@ -83,7 +81,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.SelectedIte
                         // Instantiating and setting adapter
                         productAdapter = new ProductAdapter(woodList);
                         productList.setAdapter(productAdapter);
-                        readDatabase(woodList);
+                        // readDatabase(woodList);
                         break;
                     case 2:
                         ArrayList<Products> metalList = new ArrayList<>();
@@ -95,7 +93,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.SelectedIte
                         // Instantiating and setting adapter
                         productAdapter = new ProductAdapter(metalList);
                         productList.setAdapter(productAdapter);
-                        readDatabase(metalList);
+                        // readDatabase(metalList);
                         break;
                     case 3:
                         ArrayList<Products> otherList = new ArrayList<>();
@@ -106,8 +104,11 @@ public class HomeFragment extends Fragment implements ProductAdapter.SelectedIte
                         }
                         // Instantiating and setting adapter
                         productAdapter = new ProductAdapter(otherList);
+                        productAdapter.setOnClickListener(product -> {
+
+                        });
                         productList.setAdapter(productAdapter);
-                        readDatabase(otherList);
+                        // readDatabase(otherList);
                         break;
                 }
             }
@@ -151,7 +152,8 @@ public class HomeFragment extends Fragment implements ProductAdapter.SelectedIte
     }
 
     @Override
-    public void selectedItem(Products product) {
+    public void onClick(Products product) {
         startActivity(new Intent(getActivity(), SelectedItemActivity.class).putExtra("data", product));
     }
-}
+
+    }
