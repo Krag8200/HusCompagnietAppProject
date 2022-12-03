@@ -21,6 +21,8 @@ public class FavouritesFragment extends Fragment {
     ProductAdapter productAdapter;
     Spinner dropdown;
     String[] items = new String[]{"No filter", "Wood", "Metal", "Other"};
+    ArrayList<Product> products;
+    private ProductAdapter.OnItemClickListener onItemClickListener;
 
     public FavouritesFragment() {
         // Required empty public constructor
@@ -38,14 +40,14 @@ public class FavouritesFragment extends Fragment {
         favouriteProductList.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
         // Dummy data - TODO: Populate from DB
-        ArrayList<Product> products = new ArrayList<>();
-        products.add(new Product("FavouriteProduct1","Description1", 100, "Wood", "testuser"));
-        products.add(new Product("FavouriteProduct1","Description1", 100, "Wood", "testuser"));
-        products.add(new Product("FavouriteProduct1","Description1", 100, "Wood", "testuser"));
+        products = new ArrayList<>();
+        products.add(new Product("FavouriteProduct1","Description1", 100, "Wood", "testuser", 1));
+        products.add(new Product("FavouriteProduct1","Description1", 100, "Wood", "testuser", 1));
+        products.add(new Product("FavouriteProduct1","Description1", 100, "Wood", "testuser", 1));
 
         // Instantiating and setting adapter
         dropdown = rootView.findViewById(R.id.favourite_filter_dropdown);
-        productAdapter = new ProductAdapter(products);
+        productAdapter = new ProductAdapter(products, onItemClickListener);
         favouriteProductList.setAdapter(productAdapter);
 
         //Creating and setting adapter for dropdown

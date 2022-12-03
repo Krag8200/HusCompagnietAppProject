@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements ProductAdapter.OnItemClickListener {
+public class HomeFragment extends Fragment /*implements ProductAdapter.OnItemClickListener*/ {
 
     RecyclerView productList;
     ProductAdapter productAdapter;
@@ -31,6 +32,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
     String[] items = new String[]{"No filter", "Wood", "Metal", "Other"};
     DatabaseReference dbReference;
     ArrayList<Product> productArrayList;
+    private ProductAdapter.OnItemClickListener onItemClickListener;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -50,9 +52,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
         // Instantiate ArrayList to show items in RV
         productArrayList = new ArrayList<>();
 
-        // Instantiating and setting adapter
-        productAdapter = new ProductAdapter(productArrayList);
-        productList.setAdapter(productAdapter);
+        setAdapter(productArrayList);
 
         // Call method readDatabase
         readDatabase(productArrayList);
@@ -70,8 +70,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
                 switch (position) {
                     case 0:
                         // Instantiating and setting adapter
-                        productAdapter = new ProductAdapter(productArrayList);
-                        productList.setAdapter(productAdapter);
+                        setAdapter(productArrayList);
                         break;
                     case 1:
                         ArrayList<Product> woodList = new ArrayList<>();
@@ -81,8 +80,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
                             }
                         }
                         // Instantiating and setting adapter
-                        productAdapter = new ProductAdapter(woodList);
-                        productList.setAdapter(productAdapter);
+                        setAdapter(woodList);
                         break;
                     case 2:
                         ArrayList<Product> metalList = new ArrayList<>();
@@ -92,8 +90,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
                             }
                         }
                         // Instantiating and setting adapter
-                        productAdapter = new ProductAdapter(metalList);
-                        productList.setAdapter(productAdapter);
+                        setAdapter(metalList);
                         break;
                     case 3:
                         ArrayList<Product> otherList = new ArrayList<>();
@@ -103,8 +100,7 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
                             }
                         }
                         // Instantiating and setting adapter
-                        productAdapter = new ProductAdapter(otherList);
-                        productList.setAdapter(productAdapter);
+                        setAdapter(otherList);
                         break;
                 }
             }
@@ -116,6 +112,28 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
         });
 
         return rootView;
+    }
+
+    private void setAdapter(ArrayList list) {
+        // Instantiating and setting adapter
+        productAdapter = new ProductAdapter(list, onItemClickListener);
+        productList.setAdapter(productAdapter);
+        setOnClickListener();
+    }
+
+    private void setOnClickListener() {
+        onItemClickListener = new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent = new Intent(getActivity(), SelectedItemActivity.class);
+                intent.putExtra("productTitle", productArrayList.get(position).getTitle());
+                intent.putExtra("productDesc", productArrayList.get(position).getDescription());
+                intent.putExtra("productPrice", productArrayList.get(position).getPrice());
+                intent.putExtra("productId", productArrayList.get(position).getProductId());
+
+                startActivity(intent);
+            }
+        };
     }
 
     //Read data from database and loop through all entries
@@ -130,11 +148,12 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
 
                         String title = snapshot1.child("Title").getValue(String.class);
                         String desc = snapshot1.child("Description").getValue(String.class);
-                        int price = snapshot1.child("Price").getValue(Integer.class);
+                        double price = snapshot1.child("Price").getValue(Double.class);
                         String cat = snapshot1.child("Category").getValue(String.class);
                         String user = snapshot1.child("Enlisted By User").getValue(String.class);
+                        int productId = Integer.parseInt(snapshot1.getKey());
 
-                        list.add(new Product(title, desc, price, cat, user));
+                        list.add(new Product(title, desc, price, cat, user, productId));
                     }
                 }
                 productAdapter.notifyDataSetChanged();
@@ -146,29 +165,5 @@ public class HomeFragment extends Fragment implements ProductAdapter.OnItemClick
             }
         });
     }
-
-    @Override
-    public void onClick(int position) {
-        Intent intent = new Intent(getActivity(), SelectedItemActivity.class);
-        intent.putExtra("productTitle", productArrayList.get(position).getTitle());
-        intent.putExtra("productDesc", productArrayList.get(position).getDescription());
-        intent.putExtra("productPrice", productArrayList.get(position).getPrice());
-
-
-    }
-
-
-
-/*    @Override
-    public void onClick(Product product) {
-        productAdapter.setOnClickListener(prd -> {
-            Intent intent = new Intent(getActivity(), SelectedItemActivity.class);
-            intent.putExtra("Product_title", prd.getTitle());
-            intent.putExtra("Product_description", prd.getDescription());
-            intent.putExtra("Product_price", prd.getPrice());
-            startActivity(intent);
-        });
-
-    }*/
 
     }

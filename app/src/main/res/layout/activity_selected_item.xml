@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:padding="15dp"
     tools:context=".SelectedItemActivity">
 
     <TextView
@@ -119,11 +119,12 @@
         android:layout_marginTop="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/comment_textField"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:background="@drawable/layout_list_bg2"
-            android:text="Add comment..."
+            android:hint="Add comment..."
             android:textSize="15dp"
             android:padding="5dp" />
 
@@ -133,7 +134,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/rounded_button"
-            android:text="Add" />
+            android:text="Add"
+            android:textSize="13sp" />
 
     </LinearLayout>
 

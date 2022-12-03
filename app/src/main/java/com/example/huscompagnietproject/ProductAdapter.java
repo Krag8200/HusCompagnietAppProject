@@ -1,8 +1,10 @@
 package com.example.huscompagnietproject;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,8 +30,7 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHol
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         viewHolder.title.setText(products.get(position).getTitle());
         viewHolder.description.setText(products.get(position).getDescription());
-        viewHolder.price.setText(String.valueOf(products.get(position).getPrice()));
-
+        viewHolder.price.setText(Double.toString(products.get(position).getPrice()));
     }
 
     @Override
@@ -38,7 +39,7 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHol
     }
 
     public interface OnItemClickListener {
-        void onClick(int position);
+        void onClick(View view, int position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -57,17 +58,17 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ViewHol
 
         @Override
         public void onClick(View view) {
-            onItemClickListener.onClick(getAdapterPosition());
+            onItemClickListener.onClick(view, getAdapterPosition());
         }
     }
-
 
     public ProductAdapter() {
 
     }
 
-    ProductAdapter(ArrayList<Product> products) {
+    ProductAdapter(ArrayList<Product> products, OnItemClickListener onItemClickListener) {
         this.products = products;
+        this.onItemClickListener = onItemClickListener;
     }
 
     public void setOnClickListener(OnItemClickListener listener){

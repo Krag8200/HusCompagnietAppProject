@@ -115,7 +115,7 @@ public class EnlistFragment extends Fragment {
             String title = titleInput.getText().toString();
             String description = descriptionInput.getText().toString();
             double price = Double.parseDouble(priceInput.getText().toString());
-            product = new Product(title, description, price, category, enlistedByUser);
+            product = new Product(title, description, price, category, enlistedByUser, (int) (maxId + 1));
 
             if (title.isEmpty() || description.isEmpty()) {
                 Toast.makeText(getActivity(), "Please enter all fields", Toast.LENGTH_SHORT).show();
