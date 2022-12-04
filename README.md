@@ -21,7 +21,7 @@ The app is made to promote reusing and make people reuse leftover building mater
 - [x] Login feature
 - [x] Enlist a product for sale/free pickup
 - [x] Make a purchase/reservation of a product - ***NOTE: No actual payment transaction is implemented***
-- [x] Comment section to a product for potential questions - ***NOTE: comments can be added to the database, however it's not showing up in the app as intended***
+- [x] Comment section to a product for potential questions - ***NOTE: comments can be added to the database, however they're not showing up in the app as intended***
 - [x] Filter feature (to specify products)
 - [ ] Location feature (to see locations of products)
 - [ ] Premium selling feature (put a product "on the top of the list" to make more people see it)
