@@ -84,7 +84,7 @@ public class ProfileFragment extends Fragment {
                         int price = snapshot1.child("Price").getValue(Integer.class);
                         String cat = snapshot1.child("Category").getValue(String.class);
                         String user = snapshot1.child("Enlisted By User").getValue(String.class);
-                        int productId = snapshot1.getValue(Integer.class);
+                        int productId = Integer.parseInt(snapshot1.getKey());
 
 
                         if (user.equals(userEmail.getText())) {

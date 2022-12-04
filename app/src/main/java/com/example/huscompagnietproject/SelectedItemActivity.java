@@ -32,7 +32,6 @@ public class SelectedItemActivity extends AppCompatActivity {
     private Button addCommentButton;
     private FirebaseAuth mAuth;
     private DatabaseReference dbReference;
-    private Comment comment;
     RecyclerView commentListRv;
     CommentAdapter commentAdapter;
     ArrayList<Comment> comments;
@@ -63,9 +62,6 @@ public class SelectedItemActivity extends AppCompatActivity {
 
         comments = new ArrayList<>();
 
-        commentAdapter = new CommentAdapter(comments);
-        commentListRv.setAdapter(commentAdapter);
-
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null && bundle.containsKey("productTitle")) {
@@ -79,6 +75,9 @@ public class SelectedItemActivity extends AppCompatActivity {
             productId = bundleId;
         }
 
+        commentAdapter = new CommentAdapter(comments);
+        commentListRv.setAdapter(commentAdapter);
+
         readDatabase();
 
         // Get current amount of enlisted items in DB
@@ -86,7 +85,7 @@ public class SelectedItemActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child("Products").child(String.valueOf(productId)).child("Comments").exists()) {
-                    maxId = (snapshot.child("Products").getChildrenCount());
+                    maxId = (snapshot.child("Products").child(String.valueOf(productId)).child("Comments").getChildrenCount());
                 }
             }
 
@@ -100,7 +99,6 @@ public class SelectedItemActivity extends AppCompatActivity {
 
             String user = mAuth.getCurrentUser().getEmail();
             String commentText = commentEditText.getText().toString();
-            comment = new Comment(user, commentText);
 
             if (commentText.isEmpty()) {
                 Toast.makeText(this, "Please enter a comment", Toast.LENGTH_SHORT).show();
@@ -112,8 +110,20 @@ public class SelectedItemActivity extends AppCompatActivity {
             }
         });
 
-    }
+        // Has not been implemented
+        buyButton.setOnClickListener(view -> {
+            Toast.makeText(this, "Product has been purchased!", Toast.LENGTH_SHORT).show();
+        });
 
+        // Has not been implemented
+        addFavouriteButton.setOnClickListener(view -> {
+            Toast.makeText(this, "Product has been added to favourites!", Toast.LENGTH_SHORT).show();
+        });
+
+    }
+    // Read database and instantiate adapter
+    // NOTE: Database is read correctly read from DB and inserted into ArrayList, however ArrayList is not enlisting items to RecyclerView
+    // - Same procedure works within HomeFragment
     private void readDatabase() {
         dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
