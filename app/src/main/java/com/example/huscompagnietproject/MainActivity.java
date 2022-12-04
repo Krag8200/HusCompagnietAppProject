@@ -40,10 +40,6 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new HomeFragment());
                     bottomNavigationView.setSelectedItemId(R.id.browse);
                     break;
-                case R.id.favourites:
-                    replaceFragment(new FavouritesFragment());
-                    bottomNavigationView.setSelectedItemId(R.id.favourites);
-                    break;
                 case R.id.profile:
                     FirebaseUser currentUser = mAuth.getCurrentUser();
                     if(currentUser != null){

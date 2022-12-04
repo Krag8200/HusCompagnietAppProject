@@ -1,10 +1,12 @@
 package com.example.huscompagnietproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +29,6 @@ public class SelectedItemActivity extends AppCompatActivity {
     private TextView price;
     private int productId;
     private Button buyButton;
-    private Button addFavouriteButton;
     private EditText commentEditText;
     private Button addCommentButton;
     private FirebaseAuth mAuth;
@@ -48,7 +49,6 @@ public class SelectedItemActivity extends AppCompatActivity {
         description = findViewById(R.id.selected_item_description);
         price = findViewById(R.id.selected_item_price);
         buyButton = findViewById(R.id.buy_button);
-        addFavouriteButton = findViewById(R.id.add_favourite_button);
         commentEditText = findViewById(R.id.comment_textField);
         addCommentButton = findViewById(R.id.add_comment_button);
 
@@ -112,12 +112,25 @@ public class SelectedItemActivity extends AppCompatActivity {
 
         // Has not been implemented
         buyButton.setOnClickListener(view -> {
-            Toast.makeText(this, "Product has been purchased!", Toast.LENGTH_SHORT).show();
-        });
-
-        // Has not been implemented
-        addFavouriteButton.setOnClickListener(view -> {
-            Toast.makeText(this, "Product has been added to favourites!", Toast.LENGTH_SHORT).show();
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Purchase product?");
+            alertDialog.setMessage("Are you sure you want to purchase " + title.getText() + " for " + price.getText() + "?");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(SelectedItemActivity.this, "Product has been purchased!", Toast.LENGTH_SHORT).show();
+                            dialogInterface.dismiss();
+                        }
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+            alertDialog.show();
         });
 
     }
