@@ -1,5 +1,8 @@
 # HusCompagnietAppProject
 
+**LINK TO VIDEO DEMONSTRATION:**
+https://youtu.be/KBoUPg55o_I 
+
 To minimize building material waste, we want to create an application for Android, where people - within businesses as well as private - can sell or give away excessive building material from projects.
 There is a massive amount of wasted building material on a yearly basis. With this app, it is possible to reuse building materials other people or businesses no longer need. 
 
