@@ -97,40 +97,50 @@ public class SelectedItemActivity extends AppCompatActivity {
 
         addCommentButton.setOnClickListener(view -> {
 
-            String user = mAuth.getCurrentUser().getEmail();
-            String commentText = commentEditText.getText().toString();
+            if (mAuth.getCurrentUser() != null) {
 
-            if (commentText.isEmpty()) {
-                Toast.makeText(this, "Please enter a comment", Toast.LENGTH_SHORT).show();
+                String user = mAuth.getCurrentUser().getEmail();
+                String commentText = commentEditText.getText().toString();
+
+                if (commentText.isEmpty()) {
+                    Toast.makeText(this, "Please enter a comment", Toast.LENGTH_SHORT).show();
+                } else {
+                    dbReference.child("Products").child(String.valueOf(productId)).child("Comments").child(String.valueOf(maxId + 1)).child("User").setValue(user);
+                    dbReference.child("Products").child(String.valueOf(productId)).child("Comments").child(String.valueOf(maxId + 1)).child("Comment").setValue(commentText);
+
+                    Toast.makeText(this, "Comment was added!", Toast.LENGTH_LONG).show();
+                }
+
             } else {
-                dbReference.child("Products").child(String.valueOf(productId)).child("Comments").child(String.valueOf(maxId + 1)).child("User").setValue(user);
-                dbReference.child("Products").child(String.valueOf(productId)).child("Comments").child(String.valueOf(maxId + 1)).child("Comment").setValue(commentText);
-
-                Toast.makeText(this, "Comment was added!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "You must login to make a comment!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Has not been implemented
+        // Has not been implemented with actual payment
         buyButton.setOnClickListener(view -> {
-            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-            alertDialog.setTitle("Purchase product?");
-            alertDialog.setMessage("Are you sure you want to purchase " + title.getText() + " for " + price.getText() + "?");
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Toast.makeText(SelectedItemActivity.this, "Product has been purchased!", Toast.LENGTH_SHORT).show();
-                            dialogInterface.dismiss();
-                        }
-                    });
-            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-            alertDialog.show();
+            if (mAuth.getCurrentUser() != null) {
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                alertDialog.setTitle("Purchase product?");
+                alertDialog.setMessage("Are you sure you want to purchase " + title.getText() + " for " + price.getText() + "?");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(SelectedItemActivity.this, "Product has been purchased!", Toast.LENGTH_SHORT).show();
+                                dialogInterface.dismiss();
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            } else {
+                Toast.makeText(this, "You must login to buy a product!", Toast.LENGTH_SHORT).show();
+            }
         });
 
     }
